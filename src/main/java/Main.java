@@ -1,5 +1,5 @@
 
-import algorithm.Kosaraju;
+import algorithm.Kahn;
 import graph.Graph;
 import graph.GraphReader;
 
@@ -10,19 +10,19 @@ public class Main {
     public static void main(String[] args)
             throws FileNotFoundException {
 
-        Graph graph = GraphReader.readFromFile("data/cyclic.txt");
+        Graph graph = GraphReader.readFromFile("data/dag.txt");
 
-        Kosaraju.Result result = Kosaraju.findSCC(graph);
+        Kahn.Result result = Kahn.topologicalSort(graph);
 
-        System.out.println("SCC count: " + result.componentCount);
+        System.out.println("Has cycle: " + result.hasCycle);
+        System.out.println("Topological order: " + result.order);
+        System.out.println("Edge scans: " + result.edgeScans);
 
-        for (int i = 0; i < graph.size(); i++) {
+        if (!result.hasCycle) {
             System.out.println(
-                    "Vertex " + i + " → Component " + result.component[i]
+                    "Valid order: " +
+                            Kahn.isValidOrder(graph, result.order)
             );
         }
-
-        System.out.println("Edge scans: " + result.edgeScans);
-        System.out.println("Max depth: " + result.maxDepth);
     }
 }

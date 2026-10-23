@@ -51,7 +51,6 @@ public class Kosaraju {
         long edgeScans = 0;
         int maxDepth = 0;
 
-        // First DFS pass
         for (int start = 0; start < n; start++) {
 
             if (visited[start]) {
@@ -88,14 +87,12 @@ public class Kosaraju {
             }
         }
 
-        // Reverse the graph
         Graph reversed = new Graph(n, true);
 
         for (Edge edge : graph.getEdges()) {
             reversed.addEdge(edge.to, edge.from, edge.weight);
         }
 
-        // Second DFS pass
         boolean[] visitedReverse = new boolean[n];
         int[] component = new int[n];
         int componentCount = 0;
