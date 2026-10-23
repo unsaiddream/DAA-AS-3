@@ -1,34 +1,28 @@
 
-import algorithm.DagShortestPath;
+import benchmark.GraphGenerator;
 import graph.Graph;
-import graph.GraphReader;
-
-import java.io.FileNotFoundException;
 
 public class Main {
 
-    public static void main(String[] args)
-            throws FileNotFoundException {
+    public static void main(String[] args) {
 
-        Graph graph = GraphReader.readFromFile("data/dag.txt");
+        int n = 1000;
+        int m = 4000;
 
-        DagShortestPath.Result result =
-                DagShortestPath.shortestPaths(graph);
-
-        for (int i = 0; i < graph.size(); i++) {
-            System.out.println(
-                    "Vertex " + i +
-                            ": distance = " + result.distance[i] +
-                            ", path = " + result.getPath(i)
-            );
-        }
+        Graph undirected = GraphGenerator.undirected(n, m);
+        Graph directed = GraphGenerator.directed(n, m);
+        Graph dag = GraphGenerator.dag(n, m);
 
         System.out.println(
-                "Total distance: " + result.totalDistance
+                "Undirected edges: " + undirected.getEdges().size()
         );
 
         System.out.println(
-                "Edge scans: " + result.edgeScans
+                "Directed edges: " + directed.getEdges().size()
+        );
+
+        System.out.println(
+                "DAG edges: " + dag.getEdges().size()
         );
     }
 }
