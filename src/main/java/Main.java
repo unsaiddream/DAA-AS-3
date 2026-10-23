@@ -1,6 +1,5 @@
 
-import algorithm.Kruskal;
-import graph.Edge;
+import algorithm.DagShortestPath;
 import graph.Graph;
 import graph.GraphReader;
 
@@ -11,23 +10,25 @@ public class Main {
     public static void main(String[] args)
             throws FileNotFoundException {
 
-        Graph graph = GraphReader.readFromFile("data/connected.txt");
+        Graph graph = GraphReader.readFromFile("data/dag.txt");
 
-        Kruskal.Result result = Kruskal.findMST(graph);
+        DagShortestPath.Result result =
+                DagShortestPath.shortestPaths(graph);
 
-        System.out.println("MST total weight: " + result.totalWeight);
-        System.out.println("Components: " + result.components);
-        System.out.println("MST edges:");
-
-        for (Edge edge : result.mstEdges) {
+        for (int i = 0; i < graph.size(); i++) {
             System.out.println(
-                    edge.from + " - " + edge.to +
-                            " (weight: " + edge.weight + ")"
+                    "Vertex " + i +
+                            ": distance = " + result.distance[i] +
+                            ", path = " + result.getPath(i)
             );
         }
 
-        System.out.println("DSU operations: " + result.dsuOps);
-        System.out.println("Edge scans: " + result.edgeScans);
-        System.out.println("Comparisons: " + result.comparisons);
+        System.out.println(
+                "Total distance: " + result.totalDistance
+        );
+
+        System.out.println(
+                "Edge scans: " + result.edgeScans
+        );
     }
 }
