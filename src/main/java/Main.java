@@ -1,5 +1,5 @@
 
-import algorithm.Kahn;
+import algorithm.DagShortestPath;
 import graph.Graph;
 import graph.GraphReader;
 
@@ -12,17 +12,23 @@ public class Main {
 
         Graph graph = GraphReader.readFromFile("data/dag.txt");
 
-        Kahn.Result result = Kahn.topologicalSort(graph);
+        DagShortestPath.Result result =
+                DagShortestPath.shortestPaths(graph);
 
-        System.out.println("Has cycle: " + result.hasCycle);
-        System.out.println("Topological order: " + result.order);
-        System.out.println("Edge scans: " + result.edgeScans);
-
-        if (!result.hasCycle) {
+        for (int i = 0; i < graph.size(); i++) {
             System.out.println(
-                    "Valid order: " +
-                            Kahn.isValidOrder(graph, result.order)
+                    "Vertex " + i +
+                            ": distance = " + result.distance[i] +
+                            ", path = " + result.getPath(i)
             );
         }
+
+        System.out.println(
+                "Total distance: " + result.totalDistance
+        );
+
+        System.out.println(
+                "Edge scans: " + result.edgeScans
+        );
     }
 }
