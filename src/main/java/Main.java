@@ -1,27 +1,33 @@
 
-import algorithm.DSU;
+import algorithm.Kruskal;
+import graph.Edge;
+import graph.Graph;
+import graph.GraphReader;
+
+import java.io.FileNotFoundException;
 
 public class Main {
-    public static void main(String[] args) {
 
-        DSU dsu = DSU.makeSet(5);
+    public static void main(String[] args)
+            throws FileNotFoundException {
 
-        System.out.println("Initial components: " + dsu.components());
+        Graph graph = GraphReader.readFromFile("data/connected.txt");
 
-        dsu.union(0, 1);
-        dsu.union(1, 2);
-        dsu.union(3, 4);
+        Kruskal.Result result = Kruskal.findMST(graph);
 
-        System.out.println("Components after unions: " + dsu.components());
+        System.out.println("MST total weight: " + result.totalWeight);
+        System.out.println("Components: " + result.components);
+        System.out.println("MST edges:");
 
-        System.out.println("Root of 0: " + dsu.find(0));
-        System.out.println("Root of 2: " + dsu.find(2));
+        for (Edge edge : result.mstEdges) {
+            System.out.println(
+                    edge.from + " - " + edge.to +
+                            " (weight: " + edge.weight + ")"
+            );
+        }
 
-        dsu.union(2, 3);
-
-        System.out.println("Final components: " + dsu.components());
-
-        System.out.println("Find calls: " + dsu.getFindCalls());
-        System.out.println("Successful unions: " + dsu.getSuccessfulUnions());
+        System.out.println("DSU operations: " + result.dsuOps);
+        System.out.println("Edge scans: " + result.edgeScans);
+        System.out.println("Comparisons: " + result.comparisons);
     }
 }
