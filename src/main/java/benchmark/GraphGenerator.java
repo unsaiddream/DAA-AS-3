@@ -1,9 +1,9 @@
-
 package benchmark;
 
 import graph.Graph;
 
 import java.util.Random;
+
 
 public class GraphGenerator {
 

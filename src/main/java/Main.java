@@ -24,5 +24,7 @@ public class Main {
         System.out.println(
                 "DAG edges: " + dag.getEdges().size()
         );
+
+
     }
 }
