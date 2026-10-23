@@ -1,4 +1,4 @@
-package java.graph;
+package graph;
 
 public class Edge {
     public final int from;
