@@ -1,5 +1,7 @@
 Main.class
-algorithm/DSU.class
-graph/Edge.class
 graph/GraphReader.class
 graph/Graph.class
+algorithm/Kruskal$Result.class
+algorithm/DSU.class
+graph/Edge.class
+algorithm/Kruskal.class
