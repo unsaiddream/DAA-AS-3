@@ -1,7 +1,12 @@
+algorithm/Prim$Result.class
 Main.class
+algorithm/Kosaraju.class
 graph/GraphReader.class
 graph/Graph.class
+algorithm/Kosaraju$Frame.class
 algorithm/Kruskal$Result.class
+algorithm/Kosaraju$Result.class
 algorithm/DSU.class
 graph/Edge.class
+algorithm/Prim.class
 algorithm/Kruskal.class

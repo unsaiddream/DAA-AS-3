@@ -1,6 +1,5 @@
 
-import algorithm.Kruskal;
-import algorithm.Prim;
+import algorithm.Kosaraju;
 import graph.Graph;
 import graph.GraphReader;
 
@@ -11,32 +10,19 @@ public class Main {
     public static void main(String[] args)
             throws FileNotFoundException {
 
-        Graph graph = GraphReader.readFromFile("data/connected.txt");
+        Graph graph = GraphReader.readFromFile("data/cyclic.txt");
 
-        Kruskal.Result kruskal = Kruskal.findMST(graph);
-        Prim.Result prim = Prim.findMST(graph);
+        Kosaraju.Result result = Kosaraju.findSCC(graph);
 
-        System.out.println("Kruskal weight: " + kruskal.totalWeight);
-        System.out.println("Prim weight: " + prim.totalWeight);
+        System.out.println("SCC count: " + result.componentCount);
 
-        System.out.println("Kruskal components: " + kruskal.components);
-        System.out.println("Prim components: " + prim.components);
-
-        System.out.println("Kruskal edges: " + kruskal.mstEdges.size());
-        System.out.println("Prim edges: " + prim.mstEdges.size());
-
-        if (kruskal.totalWeight != prim.totalWeight) {
-            throw new IllegalStateException(
-                    "MST weights do not match!"
+        for (int i = 0; i < graph.size(); i++) {
+            System.out.println(
+                    "Vertex " + i + " → Component " + result.component[i]
             );
         }
 
-        if (kruskal.components != prim.components) {
-            throw new IllegalStateException(
-                    "Component counts do not match!"
-            );
-        }
-
-        System.out.println("MST validation passed!");
+        System.out.println("Edge scans: " + result.edgeScans);
+        System.out.println("Max depth: " + result.maxDepth);
     }
 }
