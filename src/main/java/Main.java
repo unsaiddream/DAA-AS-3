@@ -1,26 +1,27 @@
-import graph.Graph;
-import graph.Edge;
-import graph.GraphReader;
 
-import java.io.FileNotFoundException;
+import algorithm.DSU;
 
 public class Main {
+    public static void main(String[] args) {
 
-    public static void main(String[] args)
-            throws FileNotFoundException {
+        DSU dsu = DSU.makeSet(5);
 
-        Graph graph = GraphReader.readFromFile("data/connected.txt");
+        System.out.println("Initial components: " + dsu.components());
 
-        for (int i = 0; i < graph.size(); i++) {
-            System.out.print(i + ": ");
+        dsu.union(0, 1);
+        dsu.union(1, 2);
+        dsu.union(3, 4);
 
-            for (Edge edge : graph.neighbors(i)) {
-                System.out.print(
-                        "(" + edge.to + ", " + edge.weight + ") "
-                );
-            }
+        System.out.println("Components after unions: " + dsu.components());
 
-            System.out.println();
-        }
+        System.out.println("Root of 0: " + dsu.find(0));
+        System.out.println("Root of 2: " + dsu.find(2));
+
+        dsu.union(2, 3);
+
+        System.out.println("Final components: " + dsu.components());
+
+        System.out.println("Find calls: " + dsu.getFindCalls());
+        System.out.println("Successful unions: " + dsu.getSuccessfulUnions());
     }
 }
